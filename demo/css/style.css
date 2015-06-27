@@ -1,0 +1,69 @@
+﻿body {
+    background:#fff;
+}
+#header {
+    border:1px solid black;
+    height:80px;
+    background:#ccc;
+}
+#header h1 {
+    font-size:16px;
+}
+#language-swithcher{ 
+    position:absolute;
+    top:0;
+    right:50px;
+    font-size:14px;
+}
+#language-swithcher li { 
+float:left; 
+margin:2px;
+padding:0px;
+list-style:none; 
+}
+.nav {
+    border:1px solid black;
+    background:#ccc;
+}
+.nav ul{
+width:980px;
+margin:0px auto;
+height:38px;
+padding:0;
+}
+.nav ul li{
+float:left;
+list-style:none; 
+}
+.nav ul li a{
+width:160px;
+height:28px;
+line-height:28px;
+background:red;
+color:#FFF;
+margin:5px 10px;
+font-size:12px;
+display:block;
+text-align:center;
+text-decoration:none;
+}
+.nav ul li a:hover{
+width:160px;
+height:26px;
+line-height:28px;
+border:1px solid red;
+color:red;
+background:#FFF;
+}
+
+#main {
+    border:1px solid black;
+    background:#ccc;
+    height:500px;
+}
+#footer {
+    text-align: center;
+}
+
+
+
