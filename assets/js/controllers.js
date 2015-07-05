@@ -12,28 +12,54 @@ longfoodControllers.controller('ContactCtrl', ['$scope', '$http',
     }
 ]);
 
-longfoodControllers.controller('LangController', function ($rootScope, $scope, $state, langService) {
-    var menus = $scope.menus = [
-        { href: "#", lang:"en", text: "English", selected: true },
-        { href: "#", lang:"fi", text: "Finland", selected: false },
-        { href: "#", lang:"ch", text: "简体中文", selected: false },
-    ];
+longfoodControllers.controller('LangController', function ($scope, $state,$cookies,langService) {
+    $scope.menus = langService.getLangs();
+    $scope.$on('lang.changed', function (event) {
+        $scope.menus = langService.getLangs();
+    });
     $scope.select = function (menu) {
-        angular.forEach(menus, function (menu) {
-            menu.selected = false;
-        });
-        menu.selected = true;
         langService.change(menu.lang);
         $state.go($state.current.name, {lang:menu.lang});
     }
 });
 
-longfoodControllers.controller('MainCtrl', ['$scope', '$state','langService',
-    function ($scope, $state, langService) {
+longfoodControllers.controller('MainCtrl', ['$scope','$http', '$state','langService',
+    function ($scope,$http, $state, langService) {
         $scope.Text = "This is the about page."
+        $scope.lang = langService.getCurrentLang();
+        $http.get("/assets/data/nav-" + $scope.lang + ".js")
+            .then(function (resp) {
+                $scope.LocalMenu = resp.data;
+            });
+
         $scope.$on('lang.changed', function ( event ) {
-            $scope.lang = langService.lang;
+            $scope.lang = langService.getCurrentLang();
+
+            $http.get("/assets/data/nav-" + $scope.lang + ".js")
+            .then(function (resp) {
+                $scope.LocalMenu = resp.data;
+            });
         });
-        $scope.lang = langService.lang;
+        
+        $scope.GetActive = function ( currentState ) {
+            return currentState == $state.current.name ? "active" : "";
+        };
+
+        
+
+        //$scope.LocalMenu = function ( menuName ) {
+        //    if($scope.lang == 'en')
+        //    {
+        //        return { home: "home", about: "About",contact:"Contact" };
+        //    }
+
+        //    if ($scope.lang == 'fi') {
+        //        return { home: "home-fi", about: "About-fi", contact: "Contact-fi" };
+        //    }
+
+        //    if ($scope.lang == 'ch') {
+        //        return { home: "首页", about: "关于", contact: "联系我们" };
+        //    }
+        //}
     }
 ]);

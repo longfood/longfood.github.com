@@ -1,4 +1,4 @@
-﻿var app = angular.module("longfoodApp", ["ui.router", "longfoodControllers"]);
+﻿var app = angular.module("longfoodApp", ["ui.router",'ngCookies',"longfoodControllers"]);
 
 //app.config(['$routeProvider',
 //    function ($routeProvider) {
@@ -29,10 +29,9 @@ app.run(
     }
   ]
 )
-.config(['$stateProvider', '$urlRouterProvider',
-    function ($stateProvider, $urlRouterProvider) {
+.config(['$stateProvider', '$urlRouterProvider','$locationProvider',
+    function ($stateProvider, $urlRouterProvider, $locationProvider) {
         $urlRouterProvider.otherwise("/");
-
         $stateProvider
         .state('home', {
             url: "/:lang",
@@ -59,13 +58,28 @@ app.run(
         })
     }
 ])
-.service('langService', ['$rootScope', function ($rootScope) {
+.service('langService', ['$rootScope', '$stateParams', '$cookies', function ($rootScope, $stateParams, $cookies) {
+
+    $cookies.put("currentLang", $stateParams.lang || $cookies.get("currentLang") || "en");
+
     var service = {
-        lang: "en",
+        getCurrentLang: function myfunction() {
+            return $cookies.get('currentLang');
+        } ,
+        langs:  [
+        { href: "#", lang:"en", text: "English", selected: false },
+        { href: "#", lang:"fi", text: "Finland", selected: false },
+        { href: "#", lang:"ch", text: "简体中文", selected: false },
+        ],
+        getLangs : function() {
+            angular.forEach(service.langs, function (langItem) {
+                langItem.selected = service.getCurrentLang() == langItem.lang;
+            });
+
+            return service.langs;
+        },
         change: function (newValue) {
-            if (service.lang != newValue) {
-                service.lang = newValue;
-            }
+            $cookies.put("currentLang", newValue);
             $rootScope.$broadcast('lang.changed');
         }
     }

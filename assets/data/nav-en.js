@@ -1,0 +1,1 @@
+﻿{ "home": "home", "about": "About", "contact": "Contact" }
