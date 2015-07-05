@@ -1,21 +1,5 @@
 ﻿var app = angular.module("longfoodApp", ["ui.router",'ngCookies',"longfoodControllers"]);
 
-//app.config(['$routeProvider',
-//    function ($routeProvider) {
-//        $routeProvider.
-//            when('/about', {
-//                templateUrl: 'views/about.html',
-//                controller: 'AboutCtrl'
-//            }).
-//            when('/contact', {
-//                templateUrl: 'views/contact.html',
-//                controller: 'ContactCtrl'
-//            }).
-//            otherwise({
-//                redirectTo: '/about'
-//            });
-//    }
-//]);
 app.run(
   ['$rootScope', '$state', '$stateParams',
     function ($rootScope, $state, $stateParams) {
@@ -67,9 +51,9 @@ app.run(
             return $cookies.get('currentLang');
         } ,
         langs:  [
-        { href: "#", lang:"en", text: "English", selected: false },
-        { href: "#", lang:"fi", text: "Finland", selected: false },
-        { href: "#", lang:"ch", text: "简体中文", selected: false },
+            { href: "#", lang:"en", text: "English", selected: false },
+            { href: "#", lang:"fi", text: "Finnish", selected: false },
+            { href: "#", lang:"ch", text: "简体中文", selected: false },
         ],
         getLangs : function() {
             angular.forEach(service.langs, function (langItem) {

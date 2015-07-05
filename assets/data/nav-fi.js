@@ -1,1 +1,1 @@
-﻿{ "home": "home-fi", "about": "About-fi", "contact": "Contact-fi" }
+﻿{ "home": "kotisivu", "about": "meistä", "contact": "ota yhteyttä" }

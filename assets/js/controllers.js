@@ -44,22 +44,5 @@ longfoodControllers.controller('MainCtrl', ['$scope','$http', '$state','langServ
         $scope.GetActive = function ( currentState ) {
             return currentState == $state.current.name ? "active" : "";
         };
-
-        
-
-        //$scope.LocalMenu = function ( menuName ) {
-        //    if($scope.lang == 'en')
-        //    {
-        //        return { home: "home", about: "About",contact:"Contact" };
-        //    }
-
-        //    if ($scope.lang == 'fi') {
-        //        return { home: "home-fi", about: "About-fi", contact: "Contact-fi" };
-        //    }
-
-        //    if ($scope.lang == 'ch') {
-        //        return { home: "首页", about: "关于", contact: "联系我们" };
-        //    }
-        //}
     }
 ]);
